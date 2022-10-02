@@ -82,7 +82,7 @@ const Stacks: React.FC = () => {
       <>
         <SectionHeader size="xxl" title={props.hero} />
         <TextCell title={props.title} subTitle={props.sub} />
-        <Space size="xl"/>
+        <Space size="xl" />
       </>
     );
   };
@@ -150,6 +150,7 @@ const Stacks: React.FC = () => {
           />
 
           <Grid className="grid-cols-3">
+            {/* Hstack example */}
             <Text className="col-span-2">
               Default HStack is horizontal list with default inner spacing
             </Text>
@@ -169,14 +170,16 @@ const Stacks: React.FC = () => {
                 Third child
               </Text>
             </HStack>
+
             <Code border size="sm" className="self-start">
               {"<HStack\n"}
               {"  <Text>First child</Text>\n"}
               {"  <Text>...</Text>\n"}
               {"</HStack>"}
             </Code>
-            <Space size="xl"/>
+            <Space size="xl" />
 
+            {/* Hstack example */}
             <div className="col-span-2">
               <Text>
                 HStack acceplable tailwind classes to organise display behavior
@@ -207,6 +210,7 @@ const Stacks: React.FC = () => {
             </Code>
             <Space size="xl" className="col-span-2" />
 
+            {/* Hstack example */}
             <Text className="col-span-3">
               HStack with children display rules
             </Text>
@@ -229,9 +233,9 @@ const Stacks: React.FC = () => {
               {`</HStack>`}
             </Code>
             <Space size="xl" className="col-span-2" />
-            
-            <Text className="col-span-2">HStack horizontal centered</Text>
-            <div className=""></div>
+
+            {/* Hstack example */}
+            <Text className="col-span-3">HStack horizontal centered</Text>
 
             <HStack className="border items-center bg-white bg-opacity-50">
               <Text className="bg-slate-200 flex-1 border border-dotted">
@@ -359,7 +363,7 @@ const Stacks: React.FC = () => {
           </Grid>
           <Space size="xxl" />
 
-          {/* Space ------------------------------------------------- */}
+          {/* Grid ------------------------------------------------- */}
 
           <Hero
             /* @ts-ignore */
@@ -371,19 +375,27 @@ const Stacks: React.FC = () => {
             }}
           />
 
-         
           <Grid className="grid-cols-3">
-
-            <Text className="col-span-2">Standard grid component with defoult spacing before childrens</Text>
+            <Text className="col-span-2">
+              Standard grid component with defoult spacing before childrens
+            </Text>
             <div className="row-span-6">
               {/* @ts-ignore */}
               <SideBar props={HStackProps} />
             </div>
             <Grid className="border grid-cols-2">
-              <Text className="bg-slate-200 border border-dotted">First child</Text>
-              <Text className="bg-slate-200 border border-dotted">Second child</Text>
-              <Text className="bg-slate-200 border border-dotted">Third child</Text>
-              <Text className="bg-slate-200 border border-dotted">Third child</Text>
+              <Text className="bg-slate-200 border border-dotted">
+                First child
+              </Text>
+              <Text className="bg-slate-200 border border-dotted">
+                Second child
+              </Text>
+              <Text className="bg-slate-200 border border-dotted">
+                Third child
+              </Text>
+              <Text className="bg-slate-200 border border-dotted">
+                Third child
+              </Text>
             </Grid>
             <Code border size="sm">
               {`<Grid className="grid-cols-2">\n`}
@@ -392,11 +404,10 @@ const Stacks: React.FC = () => {
               {`  <Text>...</Text>\n`}
               {"</Grid>"}
             </Code>
-
           </Grid>
           <Space size="xxl" />
 
-          {/* Grid ------------------------------------------------- */}
+          {/* Space ------------------------------------------------- */}
 
           <SectionHeader size="xxl" title="Space component" />
           <TextCell
@@ -404,8 +415,16 @@ const Stacks: React.FC = () => {
             subTitle="Space maintains default spacing, so the projected view will be equal"
           />
           <Space />
-          <Text size="xs">VStack with centered children</Text>
-          <Grid className="grid-cols-2">
+
+          <Grid className="grid-cols-3">
+            <Text className="col-span-2" size="xs">
+              VStack with centered children
+            </Text>
+            <div className="row-span-6">
+              {/* @ts-ignore */}
+              <SideBar props={HStackProps} />
+            </div>
+
             <VStack spacing="none" className="items-center border">
               <Text className="bg-slate-200 border border-dotted flex-1">
                 First child
