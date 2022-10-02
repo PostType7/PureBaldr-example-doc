@@ -71,12 +71,11 @@ const Body: React.FC = () => {
           </Text>
         </Text>
       </HStack>
-      <Card>
-        <Code>
-          git clone git@github.com:PostType7/NextStarterPack.git
-          YOUR-PROJECT-NAME
-        </Code>
-      </Card>
+
+      <Code color="success-light" bg="dark">
+        git clone git@github.com:PostType7/NextStarterPack.git YOUR-PROJECT-NAME
+      </Code>
+
       <Space />
 
       <HStack spacingL="sm" spacing="sm" className="items-center">
@@ -85,24 +84,24 @@ const Body: React.FC = () => {
           <Text size="sm">Clone native UI components</Text>
         </Text>
       </HStack>
-      <Card>
-        <Code>
-          git clone git@github.com:PostType7/NativeTheme.git
-          YOUR-PROJECT-NAME/src/components/themes/NativeTheme
-        </Code>
-      </Card>
+
+      <Code color="success-light" bg="dark">
+        git clone git@github.com:PostType7/NativeTheme.git
+        YOUR-PROJECT-NAME/src/components/themes/NativeTheme
+      </Code>
+
       <Space />
 
       <HStack spacingL="sm" spacing="sm" className="items-center">
         <Text size="sm">#3</Text>
         <Text size="sm">Clone PostType7 basic theme (PureBaldrTheme)</Text>
       </HStack>
-      <Card>
-        <Code>
-          git clone git@github.com:PostType7/NativeTheme.git
-          YOUR-PROJECT-NAME/src/components/themes/PureBaldrTheme
-        </Code>
-      </Card>
+
+      <Code color="success-light" bg="dark">
+        git clone git@github.com:PostType7/NativeTheme.git
+        YOUR-PROJECT-NAME/src/components/themes/PureBaldrTheme
+      </Code>
+
       <Space />
 
       <HStack spacingL="sm" spacing="sm" className="items-center">
@@ -111,12 +110,11 @@ const Body: React.FC = () => {
           <Text size="sm">Clone example PureBaldrTheme page</Text>
         </Text>
       </HStack>
-      <Card>
-        <Code>
-          git clone git@github.com:PostType7/NativeTheme.git
-          YOUR-PROJECT-NAME/src/pages/PureBaldr-example-backOffice
-        </Code>
-      </Card>
+
+      <Code color="success-light" bg="dark">
+        git clone git@github.com:PostType7/NativeTheme.git
+        YOUR-PROJECT-NAME/src/pages/PureBaldr-example-backOffice
+      </Code>
 
       <Space size="xxl" />
     </>

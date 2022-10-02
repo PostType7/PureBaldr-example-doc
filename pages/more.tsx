@@ -102,7 +102,7 @@ const Body: React.FC = () => {
           <Card>
             <VStack>
               <HStack>
-                <Color color="success">
+                <Color text="success">
                   <FiBell className="text-2xl" />
                 </Color>
                 <Badge bgColor="success" text="33%" icon={<FiArrowUp />} />
@@ -113,7 +113,7 @@ const Body: React.FC = () => {
           <Card>
             <VStack>
               <HStack>
-                <Color color="error">
+                <Color text="error">
                   <FiBell className="text-2xl" />
                 </Color>
                 <Badge bgColor="error" text="2%" icon={<FiArrowDown />} />
@@ -124,7 +124,7 @@ const Body: React.FC = () => {
           <Card>
             <VStack>
               <HStack>
-                <Color color="success">
+                <Color text="success">
                   <FiBell className="text-2xl" />
                 </Color>
                 <Badge bgColor="success" text="13%" icon={<FiArrowUp />} />

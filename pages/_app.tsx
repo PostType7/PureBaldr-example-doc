@@ -1,6 +1,19 @@
 import type { NextComponentType } from "next";
 import type { AppContext, AppInitialProps, AppLayoutProps } from "next/app";
-import { FiCircle, FiDatabase, FiGift, FiGithub, FiHome, FiPackage, FiZap } from "react-icons/fi";
+import {
+  FiCircle,
+  FiClipboard,
+  FiCreditCard,
+  FiDatabase,
+  FiGift,
+  FiGithub,
+  FiHome,
+  FiLayout,
+  FiLink2,
+  FiPackage,
+  FiType,
+  FiZap,
+} from "react-icons/fi";
 
 import "styles/index.css";
 //import "tailwindcss/tailwind.css";
@@ -8,8 +21,7 @@ import "styles/index.css";
 import { HStack, VStack } from "components/themes/NativeTheme/layout";
 import { NavItem, Tree } from "components/themes/NativeTheme/navigation";
 import Head from "next/head";
-import { IconText } from "components/themes/NativeTheme/typo";
-
+import { IconText, Text } from "components/themes/NativeTheme/typo";
 
 const leftMenu = [
   {
@@ -24,15 +36,15 @@ const leftMenu = [
   {
     id: "4d4f2s",
     parentId: 0,
-    text:"Native Theme",
-    className:"pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
+    text: "Native Theme",
+    className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
     id: "/stacks",
     parentId: 0,
     name: "Layout components",
-    icon: <FiPackage />,
+    icon: <FiLayout />,
     color: "dark",
     component: "NavItem",
   },
@@ -40,7 +52,7 @@ const leftMenu = [
     id: "/cards",
     parentId: 0,
     name: "Card component",
-    icon: <FiPackage />,
+    icon: <FiCreditCard />,
     color: "dark",
     component: "NavItem",
   },
@@ -48,7 +60,7 @@ const leftMenu = [
     id: "/navigation",
     parentId: 0,
     name: "Navigation components",
-    icon: <FiPackage />,
+    icon: <FiLink2 />,
     color: "dark",
     component: "NavItem",
   },
@@ -56,44 +68,44 @@ const leftMenu = [
     id: "/typo",
     parentId: 0,
     name: "Typography components",
-    icon: <FiPackage />,
+    icon: <FiType />,
     color: "dark",
     component: "NavItem",
   },
- 
+
   {
     id: "4d4f2s",
     parentId: 0,
-    text:"PureBaldr Theme",
-    className:"pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
+    text: "PureBaldr Theme",
+    className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "Page layout components",
-    icon: <FiPackage />,
+    icon: <FiLayout />,
     color: "dark",
     component: "NavItem",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "Layout components",
-    icon: <FiPackage />,
+    icon: <FiLayout />,
     color: "dark",
     component: "NavItem",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "Navigation components",
-    icon: <FiPackage />,
+    icon: <FiLink2 />,
     color: "dark",
     component: "NavItem",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "Partial components",
     icon: <FiPackage />,
@@ -101,15 +113,15 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "Form components",
-    icon: <FiPackage />,
+    icon: <FiClipboard />,
     color: "dark",
     component: "NavItem",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "Theme store",
     icon: <FiDatabase />,
@@ -117,7 +129,7 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "examples/cards-crud-local",
+    id: "/use-examples",
     parentId: 0,
     name: "Use examples",
     icon: <FiGift />,
@@ -127,12 +139,12 @@ const leftMenu = [
   {
     id: "4d4f2s",
     parentId: 0,
-    text:"Plugins",
-    className:"pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
+    text: "Plugins",
+    className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "RestStrapiProviders",
     icon: <FiZap />,
@@ -142,12 +154,12 @@ const leftMenu = [
   {
     id: "4d4f2s",
     parentId: 0,
-    text:"Theme mods",
-    className:"pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
+    text: "Theme mods",
+    className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "PureBaldr pageLayout2",
     icon: <FiZap />,
@@ -155,15 +167,13 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/",
+    id: "/todo",
     parentId: 0,
     name: "PureBaldr buttons2",
     icon: <FiZap />,
     color: "dark",
     component: "NavItem",
   },
-
-  
 ];
 
 export const DesktopMenu: React.FC = () => {
@@ -182,7 +192,9 @@ export const TopBar: React.FC = () => {
     <>
       <HStack spacing="sm" className="items-center">
         <FiCircle />
-        POSTTYPE7 UIKIT
+        <Text>POSTTYPE7 UIKIT</Text>
+        <Text color="light">|</Text>
+        <NavItem href="/use-examples">Use examples</NavItem>
       </HStack>
       <NavItem href="https://github.com/PostType7">
         <IconText icon={<FiGithub />} text="GitHub" />
@@ -190,10 +202,6 @@ export const TopBar: React.FC = () => {
     </>
   );
 };
-
-
-
-
 
 const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = (
   props: AppLayoutProps
