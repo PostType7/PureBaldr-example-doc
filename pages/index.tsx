@@ -11,13 +11,16 @@ import { DesktopMenu, TopBar } from "pages/_app";
 import { TextCell } from "components/themes/PureBaldrTheme/partials";
 
 const SectionHeader: any = dynamic(
-  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/SectionHeader`)
+  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/SectionHeader`),
+  { ssr: false }
 );
 const Card: any = dynamic(
-  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/Card`)
+  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/Card`),
+  { ssr: false }
 );
 const SidebarDashboardLayout: any = dynamic(
-  import(`${process.env.NEXT_PUBLIC_CUSTOM_PAGELAYOUT}/SidebarDashboardLayout`)
+  import(`${process.env.NEXT_PUBLIC_CUSTOM_PAGELAYOUT}/SidebarDashboardLayout`),
+  { ssr: false }
 );
 
 const Body: React.FC = () => {
@@ -64,11 +67,9 @@ const Body: React.FC = () => {
 
       <HStack spacingL="sm" spacing="sm" className="items-center">
         <Text size="sm">#1</Text>
+
         <Text size="sm">
-          <Text size="sm">
-            {" "}
-            Clone empty next.js repo with typescript and tailwind
-          </Text>
+          Clone empty next.js repo with typescript and tailwind
         </Text>
       </HStack>
 
@@ -80,9 +81,8 @@ const Body: React.FC = () => {
 
       <HStack spacingL="sm" spacing="sm" className="items-center">
         <Text size="sm">#2</Text>
-        <Text size="sm">
-          <Text size="sm">Clone native UI components</Text>
-        </Text>
+
+        <Text size="sm">Clone native UI components</Text>
       </HStack>
 
       <Code color="success-light" bg="dark">
@@ -106,9 +106,8 @@ const Body: React.FC = () => {
 
       <HStack spacingL="sm" spacing="sm" className="items-center">
         <Text size="sm">#4</Text>
-        <Text size="sm">
-          <Text size="sm">Clone example PureBaldrTheme page</Text>
-        </Text>
+
+        <Text size="sm">Clone example PureBaldrTheme page</Text>
       </HStack>
 
       <Code color="success-light" bg="dark">

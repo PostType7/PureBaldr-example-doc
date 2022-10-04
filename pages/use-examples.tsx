@@ -18,13 +18,16 @@ import { NavItem } from "components/themes/NativeTheme/navigation";
 
 /* import template */
 const Card: any = dynamic(
-  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/Card`)
+  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/Card`),
+  { ssr: false }
 );
 const SidebarDashboardLayout: any = dynamic(
-  import(`${process.env.NEXT_PUBLIC_CUSTOM_PAGELAYOUT}/SidebarDashboardLayout`)
+  import(`${process.env.NEXT_PUBLIC_CUSTOM_PAGELAYOUT}/SidebarDashboardLayout`),
+  { ssr: false }
 );
 const SectionHeader: any = dynamic(
-  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/SectionHeader`)
+  import(`${process.env.NEXT_PUBLIC_CUSTOM_LAYOUT}/SectionHeader`),
+  { ssr: false }
 );
 
 const Users: React.FC = () => {
@@ -46,7 +49,6 @@ const Users: React.FC = () => {
           <Space />
 
           <Grid className="grid-cols-3">
-            
             <NavItem href="/examples/cards-examples">
               <Card horizontal spacing="null" className="items-center">
                 <Color className="p-6" bg="dark" text="white">
@@ -61,7 +63,9 @@ const Users: React.FC = () => {
                 <Color className="p-6" bg="dark" text="white">
                   <FiFile />
                 </Color>
-                <Grid spacingX="md">CARDS CRUD - list of cards with insert and edit data</Grid>
+                <Grid spacingX="md">
+                  CARDS CRUD - list of cards with insert and edit data
+                </Grid>
               </Card>
             </NavItem>
 

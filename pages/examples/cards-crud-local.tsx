@@ -1,7 +1,12 @@
 /*
-  Users page
+  Next.js page with 
+  CARDS CRUD (local) example
+
+  POSTTYPE7 page
+  https://github.com/PostType7
 */
 import {
+  Block,
   Color,
   Hr,
   HStack,
@@ -13,13 +18,21 @@ import { Text } from "components/themes/NativeTheme/typo";
 import { DesktopMenu, TopBar } from "pages/_app";
 import dynamic from "next/dynamic";
 import { TextCell } from "components/themes/PureBaldrTheme/partials";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useThemeStore } from "components/themes/PureBaldrTheme/themeStore";
 import Button from "components/themes/PureBaldrTheme/navigation/Button";
-import { Input, RichText } from "components/themes/PureBaldrTheme/stateForm";
+import {
+  Input,
+  RichText,
+  Select,
+  MultiOption,
+  Option,
+} from "components/themes/PureBaldrTheme/stateForm";
 import { FiSearch, FiX } from "react-icons/fi";
 import { Message } from "components/themes/PureBaldrTheme/layout";
 import { ModalWrapper } from "components/themes/PureBaldrTheme/layout/ModalWrapper";
+import Badge from "components/themes/PureBaldrTheme/layout/Badge";
+import { NavItem } from "components/themes/NativeTheme/navigation";
 
 /* import template */
 const Card: any = dynamic(
@@ -36,24 +49,40 @@ const ModalBody = () => {
   const setAttr = useThemeStore((state: any) => state.setAttr);
   const pushElement = useThemeStore((state: any) => state.pushElement);
 
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    status: "",
-    price: "",
-  });
+  const editState = useThemeStore((state: any) => state.theme.editState);
+  const themeListData = useThemeStore(
+    (state: any) => state.theme.exampleElements
+  );
+  const [formData, setFormData] = useState(
+    editState === -1
+      ? {
+          title: "",
+          description: "",
+          category: ["uncategorize"],
+          status: "",
+        }
+      : themeListData[editState]
+  );
 
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-
-    /* push form data to theme storage */
-    pushElement({ path: "theme.exampleElements", element: formData });
+    editState == -1
+      ? pushElement({ path: "theme.exampleElements", element: formData })
+      : setAttr({
+          path: `theme.exampleElements.${editState}`,
+          value: formData,
+        });
 
     /* show message */
-    setAttr({
-      path: "theme.message.text",
-      value: "Insert new element",
-    });
+    editState == -1
+      ? setAttr({
+          path: "theme.message.text",
+          value: "Insert new element",
+        })
+      : setAttr({
+          path: "theme.message.text",
+          value: "Element wad edited",
+        });
 
     /* close modal */
     setAttr({
@@ -61,6 +90,7 @@ const ModalBody = () => {
       value: false,
     });
   };
+
   return (
     <Card spacing="null">
       <HStack
@@ -68,7 +98,12 @@ const ModalBody = () => {
         spacingX="md"
         className="justify-between items-center"
       >
-        <Text size="xl">Insert new data</Text>
+        {editState == -1 ? (
+          <Text size="xl">Insert new data</Text>
+        ) : (
+          <Text size="xl">Edit data</Text>
+        )}
+
         <FiX
           className="cursor-pointer"
           onClick={() =>
@@ -83,19 +118,75 @@ const ModalBody = () => {
       <form onSubmit={onSubmitHandler}>
         <Color bg="light">
           <VStack spacingY="md" spacingX="md">
-            <Input label="Title" form={["title", formData, setFormData]} />
-            <RichText
-              label="Description"
-              form={["description", formData, setFormData]}
+            <Input
+              required
+              label="Title"
+              form={["title", formData, setFormData]}
+            />
+            <Input
+              required
+              label="Subtitle"
+              form={["subtitle", formData, setFormData]}
             />
 
             <HStack>
-              <Input label="Type" form={["status", formData, setFormData]} />
-              <Input
-                label="Link name"
-                form={["price", formData, setFormData]}
-              />
+              <Select
+                label="Category"
+                form={["category", formData, setFormData]}
+                multi
+              >
+                <Hr />
+                <Color bg="white">
+                  <Block>
+                    <Text color="light" size="xs">
+                      Choose many of them...
+                    </Text>
+                  </Block>
+                </Color>
+                <MultiOption
+                  form={["category", formData, setFormData]}
+                  value="uncategorize"
+                >
+                  Uncategorize
+                </MultiOption>
+                <MultiOption
+                  form={["category", formData, setFormData]}
+                  value="first"
+                >
+                  First
+                </MultiOption>
+                <MultiOption
+                  form={["category", formData, setFormData]}
+                  value="second"
+                >
+                  Second
+                </MultiOption>
+              </Select>
+
+              <Select label="Status" form={["status", formData, setFormData]}>
+                <Option
+                  form={["status", formData, setFormData]}
+                  value="success"
+                >
+                  Success
+                </Option>
+                <Option
+                  form={["status", formData, setFormData]}
+                  value="warning"
+                >
+                  Warning
+                </Option>
+                <Option form={["status", formData, setFormData]} value="error">
+                  Error
+                </Option>
+              </Select>
             </HStack>
+
+            <RichText
+              required
+              label="Description"
+              form={["description", formData, setFormData]}
+            />
 
             <Button>SUBMIT</Button>
           </VStack>
@@ -105,16 +196,18 @@ const ModalBody = () => {
   );
 };
 
-const Users: React.FC = () => {
+const LocalCrud: React.FC = () => {
   /*
     View data
   */
-  const [search, setSearch] = useState<String>("");
   const setAttr = useThemeStore((state: any) => state.setAttr);
+  const removeElement = useThemeStore((state: any) => state.removeElement);
   const modal = useThemeStore((state: any) => state.theme.modal);
   const themeListData = useThemeStore(
     (state: any) => state.theme.exampleElements
   );
+  const editState = useThemeStore((state: any) => state.theme.editState);
+  const [searchForm, setSearchForm] = useState({ search: "" });
 
   /*
     View methods
@@ -127,15 +220,25 @@ const Users: React.FC = () => {
       value: [
         {
           title: "First example title",
-          description: "First example description",
+          subtitle: "something about first",
+          description:
+            "Probably best first example info text. This text could be long...",
           status: "success",
+          category: ["uncategorize"],
         },
         {
           title: "Second example title",
-          description: "Second example description",
+          subtitle: "something about second",
+          description:
+            "Probably best second example info text. This text could be long...",
           status: "warning",
+          category: ["uncategorize"],
         },
       ],
+    });
+    setAttr({
+      path: "theme.editState",
+      value: -1,
     });
   }
 
@@ -157,6 +260,10 @@ const Users: React.FC = () => {
             <Button
               onClick={() => {
                 setAttr({
+                  path: "theme.editState",
+                  value: -1,
+                });
+                setAttr({
                   path: "theme.modal.open",
                   value: true,
                 });
@@ -164,13 +271,17 @@ const Users: React.FC = () => {
             >
               Insert new notice
             </Button>
+
             <HStack spacing="xs">
-              <Input icon={<FiSearch />} form={["search", search, setSearch]} />
+              <Input
+                icon={<FiSearch />}
+                form={["search", searchForm, setSearchForm]}
+              />
               <Button
                 onClick={() =>
                   setAttr({
                     path: "theme.message.text",
-                    value: "This button populate only message",
+                    value: `This button populate only message for search: ${searchForm.search}`,
                   })
                 }
                 color="light"
@@ -179,13 +290,14 @@ const Users: React.FC = () => {
             </HStack>
           </HStack>
           {themeListData &&
-            themeListData.map((el: any) => {
+            themeListData.map((el: any, i: number) => {
               return (
                 <Card horizontal className="items-center">
                   <TextCell
+                    truncate
                     className="w-1/6"
                     title={el.title}
-                    subTitle="description"
+                    subTitle={el.subtitle}
                   />
                   <Hr />
                   <Text size="sm" className="flex-1">
@@ -194,9 +306,40 @@ const Users: React.FC = () => {
                   <Text color={el.status} size="sm">
                     {el.status}
                   </Text>
-                  <Text size="sm">Price</Text>
-                  <Text size="sm">Edit</Text>
-                  <Text size="sm">Delete</Text>
+                  <HStack spacing="xs">
+                    {el.category?.map((el: any) => (
+                      <Badge color="dark" size="xs" text={el} />
+                    ))}
+                  </HStack>
+                  <NavItem
+                    onClick={() => {
+                      setAttr({
+                        path: "theme.editState",
+                        value: i,
+                      });
+                      setAttr({
+                        path: "theme.modal.open",
+                        value: true,
+                      });
+                    }}
+                  >
+                    <Text size="sm">Edit</Text>
+                  </NavItem>
+                  <NavItem
+                    color="error"
+                    onClick={() => {
+                      removeElement({
+                        path: "theme.exampleElements",
+                        index: i,
+                      });
+                      setAttr({
+                        path: "theme.message.text",
+                        value: "Item was deleted",
+                      });
+                    }}
+                  >
+                    <Text size="sm">Delete</Text>
+                  </NavItem>
                 </Card>
               );
             })}
@@ -206,6 +349,10 @@ const Users: React.FC = () => {
               <ModalBody />
             </ModalWrapper>
           )}
+          <Hr />
+          <Text size="xs" color="light">
+            Edit state: {editState}
+          </Text>
         </>
       }
     />
@@ -213,5 +360,5 @@ const Users: React.FC = () => {
 };
 /* #DisablePrerenderer */
 // @ts-ignore
-Users.getInitialProps = () => ({});
-export default Users;
+LocalCrud.getInitialProps = () => ({});
+export default LocalCrud;

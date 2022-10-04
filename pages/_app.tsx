@@ -22,10 +22,13 @@ import { HStack, VStack } from "components/themes/NativeTheme/layout";
 import { NavItem, Tree } from "components/themes/NativeTheme/navigation";
 import Head from "next/head";
 import { IconText, Text } from "components/themes/NativeTheme/typo";
+import { useEffect } from "react";
+import { useThemeStore } from "components/themes/PureBaldrTheme/themeStore";
 
 const leftMenu = [
   {
-    id: "/",
+    id:"157800",
+    url: "/",
     parentId: 0,
     name: "Nextjs UIKIT",
     icon: <FiHome />,
@@ -34,14 +37,15 @@ const leftMenu = [
   },
 
   {
-    id: "4d4f2s",
+    id:"6231s2",
     parentId: 0,
     text: "Native Theme",
     className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/stacks",
+    id:"snb4j9",
+    url: "/stacks",
     parentId: 0,
     name: "Layout components",
     icon: <FiLayout />,
@@ -49,7 +53,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/cards",
+    id:"s8kissa",
+    url: "/cards",
     parentId: 0,
     name: "Card component",
     icon: <FiCreditCard />,
@@ -57,7 +62,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/navigation",
+    id:"6admv4",
+    url: "/navigation",
     parentId: 0,
     name: "Navigation components",
     icon: <FiLink2 />,
@@ -65,7 +71,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/typo",
+    id:"8an5s0",
+    url: "/typo",
     parentId: 0,
     name: "Typography components",
     icon: <FiType />,
@@ -74,14 +81,15 @@ const leftMenu = [
   },
 
   {
-    id: "4d4f2s",
+    id: "4d4sf2s",
     parentId: 0,
     text: "PureBaldr Theme",
     className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/todo",
+    id:"j40ds94",
+    url: "/todo",
     parentId: 0,
     name: "Page layout components",
     icon: <FiLayout />,
@@ -89,7 +97,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/todo",
+    id:"0dl4sh2",
+    url: "/todo",
     parentId: 0,
     name: "Layout components",
     icon: <FiLayout />,
@@ -97,7 +106,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/todo",
+    id:"03jds84",
+    url: "/todo",
     parentId: 0,
     name: "Navigation components",
     icon: <FiLink2 />,
@@ -105,7 +115,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/todo",
+    id:"nshad8",
+    url: "/todo",
     parentId: 0,
     name: "Partial components",
     icon: <FiPackage />,
@@ -113,7 +124,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/todo",
+    id:"x8ule5",
+    url: "/todo",
     parentId: 0,
     name: "Form components",
     icon: <FiClipboard />,
@@ -121,7 +133,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/todo",
+    id:"sks1s85",
+    url: "/todo",
     parentId: 0,
     name: "Theme store",
     icon: <FiDatabase />,
@@ -129,7 +142,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/use-examples",
+    id:"a9k8is",
+    url: "/use-examples",
     parentId: 0,
     name: "Use examples",
     icon: <FiGift />,
@@ -137,14 +151,15 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "4d4f2s",
+    id: "4ddo2s",
     parentId: 0,
     text: "Plugins",
     className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/todo",
+    id:"dk9sl6",
+    url: "/todo",
     parentId: 0,
     name: "RestStrapiProviders",
     icon: <FiZap />,
@@ -152,14 +167,16 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "4d4f2s",
+    id:"xl846g",
+    url: "8d4f24",
     parentId: 0,
     text: "Theme mods",
     className: "hidden lg:block pl-6 pt-4 pb-4 uppercase text-gray-500 border-t",
     component: "Text",
   },
   {
-    id: "/todo",
+    id:"ll8e6d",
+    url: "/todo",
     parentId: 0,
     name: "PureBaldr pageLayout2",
     icon: <FiZap />,
@@ -167,7 +184,8 @@ const leftMenu = [
     component: "NavItem",
   },
   {
-    id: "/todo",
+    id:"0slv4f",
+    url: "/todo",
     parentId: 0,
     name: "PureBaldr buttons2",
     icon: <FiZap />,
@@ -202,6 +220,31 @@ export const TopBar: React.FC = () => {
     </>
   );
 };
+
+/**
+   * Detect if clicked on outside of ref element
+   * usage to close opened dropdowns
+   */
+export const useOutsideAlerter = (ref:any) => {
+  const setAttr = useThemeStore((state: any) => state.setAttr);
+  useEffect(() => {
+    function handle(event:any) {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setAttr({
+          path: "theme.dropdown",
+          value: null,
+        })
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handle);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handle);
+    };
+  }, [ref]);
+}
+
 
 const App: NextComponentType<AppContext, AppInitialProps, AppLayoutProps> = (
   props: AppLayoutProps
